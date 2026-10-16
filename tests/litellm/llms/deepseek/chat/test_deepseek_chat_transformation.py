@@ -35,6 +35,36 @@ class TestDeepSeekThinkingParams:
 
         assert result["thinking"] == {"type": "enabled"}
 
+    def test_map_thinking_disabled(self):
+        """Test that thinking={"type": "disabled"} is passed through (dual-mode V4 models)."""
+        non_default_params = {"thinking": {"type": "disabled"}}
+        optional_params = {}
+
+        result = self.config.map_openai_params(
+            non_default_params=non_default_params,
+            optional_params=optional_params,
+            model="deepseek/deepseek-v4.1-flash",
+            drop_params=False,
+        )
+
+        assert result["thinking"] == {"type": "disabled"}
+
+    def test_map_thinking_disabled_strips_extra_keys(self):
+        """Test that extra keys are stripped from an explicit disabled thinking param."""
+        non_default_params = {
+            "thinking": {"type": "disabled", "budget_tokens": 1024}
+        }
+        optional_params = {}
+
+        result = self.config.map_openai_params(
+            non_default_params=non_default_params,
+            optional_params=optional_params,
+            model="deepseek/deepseek-v4-flash",
+            drop_params=False,
+        )
+
+        assert result["thinking"] == {"type": "disabled"}
+
     def test_map_thinking_with_budget_tokens_strips_budget(self):
         """Test that budget_tokens is stripped from thinking param (DeepSeek doesn't support it)."""
         non_default_params = {"thinking": {"type": "enabled", "budget_tokens": 2048}}

@@ -32,8 +32,10 @@ class DeepSeekChatConfig(OpenAIGPTConfig):
         """
         Map OpenAI params to DeepSeek params.
 
-        Handles `thinking` and `reasoning_effort` parameters for DeepSeek reasoner models.
-        DeepSeek only supports `{"type": "enabled"}` - no budget_tokens like Anthropic.
+        Handles `thinking` and `reasoning_effort` parameters for DeepSeek Models.
+        The dual-mode V4/V4.1 models accept both `{"type": "enabled"}` and
+        `{"type": "disabled"}`; older reasoner models accept only `enabled`.
+        `budget_tokens` (Anthropic-style) is not supported and is dropped.
 
         Reference: https://api-docs.deepseek.com/guides/thinking_mode
         """
@@ -47,16 +49,17 @@ class DeepSeekChatConfig(OpenAIGPTConfig):
         thinking_value = optional_params.pop("thinking", None)
         reasoning_effort = optional_params.pop("reasoning_effort", None)
 
-        # Handle thinking parameter - only accept {"type": "enabled"}
+        # Handle thinking parameter. Pass the recognized type through so callers
+        # can turn thinking off on dual-mode models; drop everything else.
         if thinking_value is not None:
-            if (
-                isinstance(thinking_value, dict)
-                and thinking_value.get("type") == "enabled"
-            ):
-                # DeepSeek only accepts {"type": "enabled"}, ignore budget_tokens
-                optional_params["thinking"] = {"type": "enabled"}
+            if isinstance(thinking_value, dict):
+                thinking_type = thinking_value.get("type")
+                if thinking_type in ("enabled", "disabled"):
+                    optional_params["thinking"] = {"type": thinking_type}
 
-        # Handle reasoning_effort - map to thinking enabled
+        # Handle reasoning_effort - map to thinking enabled; "none" leaves the
+        # field unset so the server's default (thinking on for reasoner models)
+        # is preserved.
         elif reasoning_effort is not None and reasoning_effort != "none":
             optional_params["thinking"] = {"type": "enabled"}
 
