@@ -1,4 +1,10 @@
 {
+  "tokenharbor": {
+    "base_url": "https://tokenharbor.ai/v1",
+    "api_key_env": "TOKENHARBOR_API_KEY",
+    "base_class": "openai_gpt",
+    "supported_endpoints": ["/chat/completions"]
+  },
   "publicai": {
     "base_url": "https://api.publicai.co/v1",
     "api_key_env": "PUBLICAI_API_KEY",

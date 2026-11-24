@@ -1,4 +1,52 @@
 {
+    "tokenharbor/deepseek-v4.1-flash:free": {
+        "cache_creation_input_token_cost": 0.0,
+        "cache_read_input_token_cost": 0.0,
+        "input_cost_per_token": 0.0,
+        "input_cost_per_token_cache_hit": 0.0,
+        "litellm_provider": "tokenharbor",
+        "max_input_tokens": 1000000,
+        "max_output_tokens": 8192,
+        "max_tokens": 8192,
+        "mode": "chat",
+        "output_cost_per_token": 0.0,
+        "source": "https://tokenharbor.ai/",
+        "supported_endpoints": [
+            "/v1/chat/completions"
+        ],
+        "supports_assistant_prefill": true,
+        "supports_function_calling": true,
+        "supports_native_streaming": true,
+        "supports_parallel_function_calling": true,
+        "supports_prompt_caching": true,
+        "supports_response_schema": true,
+        "supports_system_messages": true,
+        "supports_tool_choice": true
+    },
+    "tokenharbor/deepseek-v4.1-flash": {
+        "cache_creation_input_token_cost": 0.0,
+        "cache_read_input_token_cost": 0.0,
+        "input_cost_per_token": 0.0,
+        "input_cost_per_token_cache_hit": 0.0,
+        "litellm_provider": "tokenharbor",
+        "max_input_tokens": 1000000,
+        "max_output_tokens": 8192,
+        "max_tokens": 8192,
+        "mode": "chat",
+        "output_cost_per_token": 0.0,
+        "source": "https://tokenharbor.ai/",
+        "supported_endpoints": [
+            "/v1/chat/completions"
+        ],
+        "supports_assistant_prefill": true,
+        "supports_function_calling": true,
+        "supports_native_streaming": true,
+        "supports_parallel_function_calling": true,
+        "supports_prompt_caching": true,
+        "supports_response_schema": true,
+        "supports_system_messages": true,
+        "supports_tool_choice": true
+    },
     "sample_spec": {
         "code_interpreter_cost_per_session": 0.0,
         "computer_use_input_cost_per_1k_tokens": 0.0,
